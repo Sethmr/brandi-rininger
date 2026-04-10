@@ -67,25 +67,55 @@
     }, { passive: true });
   }
 
-  /* --- Contact Form Handler --- */
+  /* --- Contact Form Handler → sends SMS via Twilio Function --- */
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      var submitBtn = contactForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
       // Collect form data
       var data = new FormData(contactForm);
       var payload = {};
       data.forEach(function (value, key) { payload[key] = value; });
 
-      // TODO: Replace with actual form endpoint (Formspree, Netlify Forms, or custom)
-      console.log('Form submission:', payload);
+      // Format the interest and timeline for readability
+      var interestMap = {
+        buying: 'Buying a Home', selling: 'Selling a Home', land: 'Buying Land',
+        investing: 'Real Estate Investing', relocating: 'Relocating to WNC', other: 'Something Else'
+      };
+      var timelineMap = {
+        asap: 'ASAP', '1-3months': '1-3 months', '3-6months': '3-6 months',
+        '6-12months': '6-12 months', exploring: 'Just exploring'
+      };
 
-      // Show success message
-      var successEl = document.getElementById('form-success');
-      if (successEl) {
+      payload.interest_label = interestMap[payload.interest] || '';
+      payload.timeline_label = timelineMap[payload.timeline] || '';
+
+      // POST to Twilio Function endpoint
+      // SETUP: Replace this URL with your Twilio Function URL
+      var ENDPOINT = 'https://YOUR-TWILIO-FUNCTION-URL.twil.io/contact-sms';
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Server error');
+        return res.json();
+      })
+      .then(function () {
         contactForm.style.display = 'none';
-        successEl.style.display = 'block';
-      }
+        document.getElementById('form-success').style.display = 'block';
+      })
+      .catch(function () {
+        contactForm.style.display = 'none';
+        document.getElementById('form-error').style.display = 'block';
+      });
     });
   }
 
