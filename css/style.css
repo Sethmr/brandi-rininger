@@ -126,17 +126,18 @@ p { margin-bottom: 1rem; }
 .nav-links a[aria-current="page"]::after { width: 100%; }
 .nav-links a:hover { color: var(--brand); }
 
-.nav-cta {
+.nav-links a.nav-cta {
+  display: inline-block;
   background: var(--accent);
   color: var(--white) !important;
-  padding: .6rem 2rem;
+  padding: .7rem 2rem;
   border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: .9rem;
   transition: background .2s, transform .15s;
 }
-.nav-cta:hover { background: #17A589; transform: translateY(-1px); }
-.nav-cta::after { display: none !important; }
+.nav-links a.nav-cta:hover { background: #17A589; transform: translateY(-1px); }
+.nav-links a.nav-cta::after { display: none !important; }
 
 /* Mobile nav toggle */
 .nav-toggle {
