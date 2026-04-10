@@ -1,0 +1,11 @@
+# Redirect www to non-www (Cloudflare Pages handles this via custom domain settings)
+# These are fallback redirects for Cloudflare Pages
+
+# Redirect trailing slashes for HTML files (clean URLs)
+/about    /about.html    200
+/contact  /contact.html  200
+/privacy  /privacy.html  200
+
+# Future: When brandiwnc.com is set up as a redirect domain,
+# configure it in Cloudflare DNS as a CNAME to brandirininger.com
+# with a Page Rule: brandiwnc.com/* -> 301 -> https://brandirininger.com/$1
