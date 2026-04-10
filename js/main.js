@@ -67,55 +67,67 @@
     }, { passive: true });
   }
 
-  /* --- Contact Form Handler → sends SMS via Twilio Function --- */
+  /* --- Contact Form Handler → opens SMS app or shows copy fallback --- */
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
+    var BRANDI_PHONE = '+18139247366';
+
+    var interestMap = {
+      buying: 'Buying a Home', selling: 'Selling a Home', land: 'Buying Land',
+      investing: 'Real Estate Investing', relocating: 'Relocating to WNC', other: 'Something Else'
+    };
+    var timelineMap = {
+      asap: 'ASAP', '1-3months': '1-3 months', '3-6months': '3-6 months',
+      '6-12months': '6-12 months', exploring: 'Just exploring'
+    };
+
+    function buildSmsBody(d) {
+      var lines = ['Hi Brandi! I found you on brandirininger.com.', ''];
+      lines.push('Name: ' + d.name);
+      if (d.phone) lines.push('Phone: ' + d.phone);
+      if (d.email) lines.push('Email: ' + d.email);
+      if (d.interest && interestMap[d.interest]) lines.push('Interest: ' + interestMap[d.interest]);
+      if (d.timeline && timelineMap[d.timeline]) lines.push('Timeline: ' + timelineMap[d.timeline]);
+      if (d.message) { lines.push(''); lines.push(d.message); }
+      return lines.join('\n');
+    }
+
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var submitBtn = contactForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
 
       // Collect form data
       var data = new FormData(contactForm);
       var payload = {};
       data.forEach(function (value, key) { payload[key] = value; });
 
-      // Format the interest and timeline for readability
-      var interestMap = {
-        buying: 'Buying a Home', selling: 'Selling a Home', land: 'Buying Land',
-        investing: 'Real Estate Investing', relocating: 'Relocating to WNC', other: 'Something Else'
-      };
-      var timelineMap = {
-        asap: 'ASAP', '1-3months': '1-3 months', '3-6months': '3-6 months',
-        '6-12months': '6-12 months', exploring: 'Just exploring'
-      };
+      var body = buildSmsBody(payload);
 
-      payload.interest_label = interestMap[payload.interest] || '';
-      payload.timeline_label = timelineMap[payload.timeline] || '';
-
-      // POST to Twilio Function endpoint
-      // SETUP: Replace this URL with your Twilio Function URL
-      var ENDPOINT = 'https://YOUR-TWILIO-FUNCTION-URL.twil.io/contact-sms';
-
-      fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      .then(function (res) {
-        if (!res.ok) throw new Error('Server error');
-        return res.json();
-      })
-      .then(function () {
+      if (isMobileDevice()) {
+        // Mobile: open native SMS app with prefilled number & message
+        // Use &body= for iOS, ?body= for Android; &body= works on both modern versions
+        var smsUrl = 'sms:' + BRANDI_PHONE + '?&body=' + encodeURIComponent(body);
+        window.location.href = smsUrl;
+      } else {
+        // Desktop: show formatted message with copy button
         contactForm.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-      })
-      .catch(function () {
-        contactForm.style.display = 'none';
-        document.getElementById('form-error').style.display = 'block';
-      });
+        var fallback = document.getElementById('form-copy-fallback');
+        var preview = document.getElementById('sms-preview');
+        preview.textContent = body;
+        fallback.style.display = 'block';
+
+        document.getElementById('copy-sms-btn').addEventListener('click', function () {
+          navigator.clipboard.writeText(body).then(function () {
+            document.getElementById('copy-confirm').style.display = 'block';
+            setTimeout(function () {
+              document.getElementById('copy-confirm').style.display = 'none';
+            }, 2000);
+          });
+        });
+      }
     });
   }
 
