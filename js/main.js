@@ -6,6 +6,9 @@
 (function () {
   'use strict';
 
+  /* --- Gate CSS animations behind JS readiness --- */
+  document.documentElement.classList.add('js-ready');
+
   /* --- Mobile Nav Toggle --- */
   const toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
