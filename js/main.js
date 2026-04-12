@@ -146,3 +146,141 @@
   });
 
 })();
+
+/* ===== BACK TO TOP BUTTON ===== */
+(function(){
+  var btn = document.querySelector('.back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 400) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+  btn.addEventListener('click', function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+})();
+
+/* ===== SCROLL PROGRESS INDICATOR ===== */
+(function(){
+  var bar = document.querySelector('.scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  });
+})();
+
+/* ===== FADE-IN ON SCROLL (Intersection Observer) ===== */
+(function(){
+  var reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  if (!reveals.length || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('active'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15, rootMargin: '0px 0px -40px 0px'});
+  reveals.forEach(function(el){ observer.observe(el); });
+})();
+
+/* ===== DARK MODE TOGGLE ===== */
+(function(){
+  var toggle = document.querySelector('.dark-toggle');
+  if (!toggle) return;
+  var stored = localStorage.getItem('theme');
+  if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+    document.documentElement.setAttribute('data-theme','dark');
+    toggle.textContent = '☀️';
+  }
+  toggle.addEventListener('click', function(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '🌙';
+      localStorage.setItem('theme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      toggle.textContent = '☀️';
+      localStorage.setItem('theme','dark');
+    }
+  });
+})();
+
+/* ===== READING PROGRESS BAR (Blog Posts) ===== */
+(function(){
+  var bar = document.querySelector('.reading-progress');
+  if (!bar) return;
+  var article = document.querySelector('article') || document.querySelector('main');
+  if (!article) return;
+  window.addEventListener('scroll', function(){
+    var rect = article.getBoundingClientRect();
+    var total = article.offsetHeight - window.innerHeight;
+    var progress = Math.min(Math.max(-rect.top / total * 100, 0), 100);
+    bar.style.width = progress + '%';
+  });
+})();
+
+/* ===== SHARE BUTTONS ===== */
+(function(){
+  document.querySelectorAll('.share-btn[data-action]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var action = this.getAttribute('data-action');
+      var url = encodeURIComponent(window.location.href);
+      var title = encodeURIComponent(document.title);
+      if (action === 'twitter') window.open('https://twitter.com/intent/tweet?url='+url+'&text='+title,'_blank','width=550,height=420');
+      else if (action === 'facebook') window.open('https://www.facebook.com/sharer/sharer.php?u='+url,'_blank','width=550,height=420');
+      else if (action === 'linkedin') window.open('https://www.linkedin.com/sharing/share-offsite/?url='+url,'_blank','width=550,height=420');
+      else if (action === 'copy') {
+        navigator.clipboard.writeText(window.location.href).then(function(){
+          var orig = btn.textContent;
+          btn.textContent = '✓';
+          setTimeout(function(){ btn.textContent = orig; }, 2000);
+        });
+      }
+    });
+  });
+})();
+
+/* ===== FAQ ACCORDION ===== */
+(function(){
+  document.querySelectorAll('.faq-question').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var answer = this.nextElementSibling;
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      if (expanded) answer.classList.remove('open');
+      else answer.classList.add('open');
+    });
+  });
+})();
+
+/* ===== MORTGAGE CALCULATOR ===== */
+(function(){
+  var form = document.getElementById('mortgage-calc');
+  if (!form) return;
+  function calc(){
+    var price = parseFloat(document.getElementById('calc-price').value) || 0;
+    var down = parseFloat(document.getElementById('calc-down').value) || 20;
+    var rate = parseFloat(document.getElementById('calc-rate').value) || 6.5;
+    var years = parseFloat(document.getElementById('calc-years').value) || 30;
+    var principal = price * (1 - down/100);
+    var monthlyRate = rate / 100 / 12;
+    var payments = years * 12;
+    var monthly = monthlyRate > 0 ? principal * (monthlyRate * Math.pow(1+monthlyRate,payments)) / (Math.pow(1+monthlyRate,payments)-1) : principal / payments;
+    var result = document.getElementById('calc-result');
+    if (result) result.textContent = '$' + Math.round(monthly).toLocaleString() + '/mo';
+  }
+  form.querySelectorAll('input').forEach(function(input){
+    input.addEventListener('input', calc);
+  });
+  calc();
+})();
+
+/* ===== PAGE TRANSITION ===== */
+document.body.classList.add('page-transition');
