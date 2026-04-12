@@ -417,6 +417,9 @@ select.form-control { appearance: none; background: var(--white) url("data:image
   .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
 }
 
+/* --- BIO PHOTO --- */
+.bio-photo { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 2rem; border: 4px solid var(--accent); }
+
 /* --- PRINT --- */
 @media print {
   .site-header, .site-footer, .nav-toggle, .cta-banner { display: none; }

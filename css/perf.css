@@ -1,0 +1,359 @@
+/* ========================================
+   PERFORMANCE OPTIMIZATION STYLESHEET
+   Extracted inline styles converted to classes
+   ======================================== */
+
+/* HERO SECTIONS */
+.hero-section-lg {
+  padding: 5rem 1.5rem;
+}
+
+.hero-section-md {
+  padding: 4rem 1.5rem;
+}
+
+.hero-section-sm {
+  padding: 3.5rem 1.5rem;
+}
+
+.hero-gradient-teal {
+  background: linear-gradient(135deg, rgba(51, 102, 102, 0.85) 0%, rgba(34, 68, 68, 0.85) 100%), url('https://images.unsplash.com/photo-1570129477492-45ac003d2e51?w=1200&h=600&fit=crop') center/cover no-repeat;
+}
+
+/* CONTAINER & LAYOUT CONSTRAINTS */
+.container-narrow {
+  max-width: 900px;
+}
+
+/* SPACING UTILITIES */
+.margin-top-3rem {
+  margin-top: 3rem;
+}
+
+.margin-bottom-3rem {
+  margin-bottom: 3rem;
+}
+
+.margin-top-2rem {
+  margin-top: 2rem;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.margin-vertical-2rem {
+  margin: 2rem 0;
+}
+
+.margin-vertical-15rem {
+  margin: 1.5rem 0;
+}
+
+.margin-center {
+  margin: 0 auto;
+}
+
+/* GRID SPACING */
+.grid-gap-3rem {
+  gap: 3rem;
+}
+
+.grid-gap-15rem {
+  gap: 1.5rem;
+}
+
+.grid-margin-2rem {
+  margin: 2rem 0;
+}
+
+/* PADDING UTILITIES */
+.padding-15rem {
+  padding: 1.5rem;
+}
+
+.padding-2rem {
+  padding: 2rem;
+}
+
+/* CARD & BOX STYLES */
+.card-light {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.card-white {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.card-brand-left {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #fff;
+  border-left: 4px solid var(--brand);
+  border-radius: 4px;
+}
+
+/* CALLOUT BOXES */
+.callout-section-margin {
+  margin: 1.5rem 0;
+}
+
+.callout-section-margin-lg {
+  margin: 2rem 0;
+}
+
+.callout-top-margin {
+  margin-top: 2rem;
+}
+
+/* TYPOGRAPHY UTILITIES */
+.text-accent {
+  color: var(--accent);
+}
+
+.text-brand {
+  color: var(--brand);
+}
+
+.text-gray-light {
+  color: #666;
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.text-sm {
+  font-size: 0.9rem;
+}
+
+.text-lg {
+  font-size: 1.15rem;
+}
+
+.text-xl {
+  font-size: 1.1rem;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* MARGIN BOTTOM UTILITIES */
+.margin-bottom-sm {
+  margin-bottom: 0.5rem;
+}
+
+.margin-bottom-xs {
+  margin-bottom: 0.75rem;
+}
+
+.margin-top-half {
+  margin-top: 0.5rem;
+}
+
+.margin-top-1rem {
+  margin-top: 1rem;
+}
+
+/* LIST STYLING */
+.list-spacing {
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+
+.list-spacing-lg {
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+
+/* FORM & BUTTON UTILITIES */
+.button-full-width {
+  width: 100%;
+}
+
+.button-large {
+  font-size: 1.1rem;
+  padding: 0.85rem 2.25rem;
+}
+
+.form-section-hidden {
+  display: none;
+}
+
+/* BACKGROUND & BORDER UTILITIES */
+.bg-accent-light {
+  background: var(--accent-light);
+}
+
+.bg-white {
+  background: var(--white);
+}
+
+.border-radius-md {
+  border-radius: var(--radius-md);
+}
+
+.border-radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.border-1-gray {
+  border: 1px solid var(--gray-300);
+}
+
+/* DISPLAY & VISIBILITY */
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.visible-on-confirmation {
+  display: none;
+}
+
+.visible-on-confirmation.shown {
+  display: block;
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* TEXT FORMATTING */
+.text-preformatted {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.numeric-stat {
+  color: var(--accent);
+}
+
+/* SECTION STYLING */
+.section-divider {
+  margin-top: 3rem;
+}
+
+.cta-banner-spacing {
+  margin-top: 3rem;
+}
+
+/* COMBINATION CLASSES FOR COMMON PATTERNS */
+.card-stat-item {
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.heading-no-top-margin {
+  margin-top: 0;
+}
+
+.subtext-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.contact-info-card {
+  text-align: left;
+  padding: 1.5rem;
+}
+
+.contact-info-heading {
+  color: var(--brand);
+  margin-bottom: 0.5rem;
+}
+
+.contact-info-subtext {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.sms-preview-box {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.message-ready-box {
+  display: none;
+  padding: 2rem;
+  background: var(--accent-light);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+}
+
+.message-ready-box.shown {
+  display: block;
+}
+
+.message-ready-title {
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.message-ready-text {
+  margin-bottom: 0.75rem;
+}
+
+.message-ready-link {
+  font-weight: 700;
+}
+
+.cost-list {
+  margin: 1rem 0 0 0;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .hero-section-lg {
+    padding: 3rem 1rem;
+  }
+
+  .hero-section-md {
+    padding: 2.5rem 1rem;
+  }
+
+  .hero-section-sm {
+    padding: 2.5rem 1rem;
+  }
+
+  .grid-gap-3rem {
+    gap: 1.5rem;
+  }
+
+  .margin-vertical-2rem {
+    margin: 1.5rem 0;
+  }
+}
