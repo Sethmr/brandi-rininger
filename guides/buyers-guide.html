@@ -504,6 +504,33 @@
     </div>
   </section>
 
+  <!-- Mortgage Calculator -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" style="max-width:900px;">
+      <h2 style="text-align:center;margin-bottom:.5rem;">Quick Mortgage Estimate</h2>
+      <p style="text-align:center;color:var(--gray-500);margin-bottom:2rem;">Get a rough idea of your monthly payment</p>
+      <div class="calc-widget" id="mortgage-calc">
+        <div class="calc-row">
+          <label>Home Price ($)
+            <input type="number" id="calc-price" value="350000" min="0" step="5000">
+          </label>
+          <label>Down Payment (%)
+            <input type="number" id="calc-down" value="20" min="0" max="100" step="1">
+          </label>
+        </div>
+        <div class="calc-row">
+          <label>Interest Rate (%)
+            <input type="number" id="calc-rate" value="6.5" min="0" max="20" step="0.125">
+          </label>
+          <label>Loan Term (years)
+            <input type="number" id="calc-years" value="30" min="1" max="50" step="1">
+          </label>
+        </div>
+        <div class="calc-result" id="calc-result">$1,771/mo</div>
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL CTA -->
   <section class="section">
     <div class="container">
@@ -552,6 +579,10 @@
             <li><a href="/neighborhoods/">+ 8 More Areas</a></li>
           </ul>
         </div>
+      </div>
+            <div style="display:flex;gap:1rem;justify-content:center;margin-top:1.5rem;">
+        <a href="https://www.facebook.com/brandi.rininger" target="_blank" rel="noopener" aria-label="Facebook" style="color:var(--gray-400);font-size:1.25rem;transition:color .2s;">FB</a>
+        <a href="https://www.instagram.com/brandi.rininger" target="_blank" rel="noopener" aria-label="Instagram" style="color:var(--gray-400);font-size:1.25rem;transition:color .2s;">IG</a>
       </div>
       <div class="footer-bottom">
         <span>&copy; <span class="current-year">2026</span> Brandi Rininger. All rights reserved. Brokered by eXp Realty.</span>
