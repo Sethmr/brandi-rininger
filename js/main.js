@@ -73,7 +73,7 @@
   /* --- Contact Form Handler → opens SMS app or shows copy fallback --- */
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
-    var BRANDI_PHONE = '+18139247366';
+    var BRANDI_PHONE = '+18283716980';
 
     var interestMap = {
       buying: 'Buying a Home', selling: 'Selling a Home', land: 'Buying Land',
