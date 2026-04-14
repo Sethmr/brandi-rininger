@@ -109,6 +109,17 @@
 
       var body = buildSmsBody(payload);
 
+      // GA4: Track form submission
+      if (typeof gtag === 'function') {
+        gtag('event', 'form_submit_contact', {
+          event_category: 'contact',
+          event_label: payload.interest || 'unknown',
+          interest: payload.interest || '',
+          timeline: payload.timeline || '',
+          method: isMobileDevice() ? 'sms' : 'copy'
+        });
+      }
+
       if (isMobileDevice()) {
         // Mobile: open native SMS app with prefilled number & message
         // Use &body= for iOS, ?body= for Android; &body= works on both modern versions
@@ -283,6 +294,129 @@
     input.addEventListener('input', calc);
   });
   calc();
+})();
+
+/* ===== GA4 EVENT TRACKING ===== */
+(function(){
+  // Helper: safe gtag call (only fires if gtag is loaded)
+  function trackEvent(eventName, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params || {});
+    }
+  }
+
+  // 1. PHONE CLICK TRACKING
+  // Track all clicks on tel: links
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(link){
+    link.addEventListener('click', function(){
+      trackEvent('phone_click', {
+        event_category: 'contact',
+        event_label: this.href.replace('tel:', ''),
+        link_text: this.textContent.trim(),
+        page_location: window.location.pathname
+      });
+    });
+  });
+
+  // 2. CTA BUTTON TRACKING
+  // Track nav CTA ("Contact Brandi" button in header)
+  document.querySelectorAll('.nav-cta').forEach(function(link){
+    link.addEventListener('click', function(){
+      trackEvent('cta_click', {
+        event_category: 'navigation',
+        event_label: 'nav_contact_brandi',
+        link_text: this.textContent.trim(),
+        page_location: window.location.pathname
+      });
+    });
+  });
+
+  // Track mobile sticky CTA buttons
+  document.querySelectorAll('.mobile-sticky-cta a').forEach(function(link){
+    link.addEventListener('click', function(){
+      trackEvent('cta_click', {
+        event_category: 'mobile_sticky',
+        event_label: this.href.includes('tel:') ? 'mobile_call' : 'mobile_contact',
+        link_text: this.textContent.trim(),
+        page_location: window.location.pathname
+      });
+    });
+  });
+
+  // Track CTA banner buttons (the big call-to-action sections)
+  document.querySelectorAll('.cta-banner .btn').forEach(function(link){
+    link.addEventListener('click', function(){
+      trackEvent('cta_click', {
+        event_category: 'cta_banner',
+        event_label: this.textContent.trim().toLowerCase().replace(/\s+/g, '_'),
+        link_text: this.textContent.trim(),
+        page_location: window.location.pathname
+      });
+    });
+  });
+
+  // 3. OUTBOUND LINK TRACKING
+  // Track clicks on links that go to external domains
+  document.querySelectorAll('a[href^="http"]').forEach(function(link){
+    if (link.hostname !== window.location.hostname) {
+      link.addEventListener('click', function(){
+        trackEvent('outbound_click', {
+          event_category: 'outbound',
+          event_label: this.href,
+          link_text: this.textContent.trim(),
+          page_location: window.location.pathname
+        });
+      });
+    }
+  });
+
+  // 4. SCROLL DEPTH TRACKING (25%, 50%, 75%, 100%)
+  var scrollMarks = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function(){
+    var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollHeight <= 0) return;
+    var pct = Math.round((window.scrollY / scrollHeight) * 100);
+    [25, 50, 75, 100].forEach(function(mark){
+      if (pct >= mark && !scrollMarks[mark]) {
+        scrollMarks[mark] = true;
+        trackEvent('scroll_depth', {
+          event_category: 'engagement',
+          event_label: mark + '%',
+          page_location: window.location.pathname
+        });
+      }
+    });
+  }, { passive: true });
+
+  // 5. BLOG / GUIDE LINK TRACKING
+  // Track clicks on internal resource links (buyer's guide, seller's guide, blog posts)
+  document.querySelectorAll('a[href*="/guides/"], a[href*="/blog/"]').forEach(function(link){
+    if (link.hostname === window.location.hostname || !link.hostname) {
+      link.addEventListener('click', function(){
+        trackEvent('internal_resource_click', {
+          event_category: 'content',
+          event_label: this.getAttribute('href'),
+          link_text: this.textContent.trim(),
+          page_location: window.location.pathname
+        });
+      });
+    }
+  });
+
+  // 6. NEIGHBORHOOD/AREA PAGE CLICK TRACKING
+  // Track clicks on city/area cards from the hub page
+  document.querySelectorAll('a[href*="/neighborhoods/"]').forEach(function(link){
+    if (link.classList.contains('card') || link.closest('.card')) {
+      link.addEventListener('click', function(){
+        trackEvent('area_explore', {
+          event_category: 'content',
+          event_label: this.getAttribute('href'),
+          link_text: this.textContent.trim().substring(0, 50),
+          page_location: window.location.pathname
+        });
+      });
+    }
+  });
 })();
 
 /* ===== PAGE TRANSITION ===== */
