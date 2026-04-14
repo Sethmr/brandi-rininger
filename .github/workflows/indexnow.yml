@@ -1,0 +1,89 @@
+name: IndexNow - Notify Search Engines
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit to detect changed files
+
+      - name: Detect changed URLs
+        id: changes
+        run: |
+          # Get list of changed HTML/XML files
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- '*.html' '*.xml' 2>/dev/null || echo "")
+
+          if [ -z "$CHANGED" ]; then
+            echo "No HTML/XML files changed, submitting sitemap URLs"
+            # Extract all URLs from sitemap.xml
+            URLS=$(grep -oP '(?<=<loc>)[^<]+' sitemap.xml)
+          else
+            echo "Changed files:"
+            echo "$CHANGED"
+            # Convert file paths to full URLs
+            URLS=""
+            for file in $CHANGED; do
+              if [ "$file" = "index.html" ]; then
+                URLS="$URLS https://brandirininger.com/"
+              elif [ "$file" = "sitemap.xml" ]; then
+                continue
+              else
+                URLS="$URLS https://brandirininger.com/$file"
+              fi
+            done
+          fi
+
+          # Write URLs to file for next step
+          echo "$URLS" | tr ' ' '\n' | grep -v '^$' > /tmp/urls.txt
+          echo "URL count: $(wc -l < /tmp/urls.txt)"
+          cat /tmp/urls.txt
+
+      - name: Wait for GitHub Pages deploy
+        run: |
+          echo "Waiting 90 seconds for GitHub Pages to deploy..."
+          sleep 90
+
+      - name: Submit to IndexNow
+        run: |
+          KEY="d7d16f1383cd863363a5ef19a77ed37f56992648b4ed206fa5c7f3b319f59921"
+          HOST="brandirininger.com"
+
+          # Read URLs into JSON array
+          URL_LIST=$(cat /tmp/urls.txt | python3 -c "
+          import sys, json
+          urls = [line.strip() for line in sys.stdin if line.strip()]
+          print(json.dumps(urls))
+          ")
+
+          echo "Submitting $(echo $URL_LIST | python3 -c 'import sys,json; print(len(json.loads(sys.stdin.read())))') URLs to IndexNow..."
+
+          # Submit to Bing's IndexNow endpoint
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{
+              \"host\": \"$HOST\",
+              \"key\": \"$KEY\",
+              \"keyLocation\": \"https://$HOST/$KEY.txt\",
+              \"urlList\": $URL_LIST
+            }")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+
+          echo "Response code: $HTTP_CODE"
+          echo "Response body: $BODY"
+
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "IndexNow submission successful!"
+          else
+            echo "IndexNow submission returned $HTTP_CODE (non-fatal)"
+            # Don't fail the workflow - IndexNow errors shouldn't block deploys
+          fi
