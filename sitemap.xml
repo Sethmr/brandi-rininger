@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://brandirininger.com/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,8 +13,20 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://brandirininger.com/land-for-sale.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/off-grid-homesteading.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://brandirininger.com/about.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -26,31 +38,31 @@
   </url>
   <url>
     <loc>https://brandirininger.com/neighborhoods/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/neighborhoods/franklin-nc.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/neighborhoods/bryson-city-nc.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/neighborhoods/sylva-nc.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/neighborhoods/asheville-nc.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -134,7 +146,7 @@
   </url>
   <url>
     <loc>https://brandirininger.com/blog/</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -146,32 +158,62 @@
   </url>
   <url>
     <loc>https://brandirininger.com/blog/relocating-to-carolina-smokies-guide.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/blog/buying-land-western-north-carolina.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/cost-of-living-franklin-nc.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/best-mountain-towns-western-nc.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/nc-vs-florida-cost-of-living.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/mountain-land-prices-wnc.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/asheville-alternatives-wnc.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brandirininger.com/blog/honest-guide-living-western-nc.html</loc>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/guides/buyers-guide.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://brandirininger.com/guides/sellers-guide.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://brandirininger.com/privacy.html</loc>
-    <lastmod>2026-04-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
   </url>
 </urlset>
